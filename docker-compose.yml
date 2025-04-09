@@ -9,6 +9,15 @@ services:
       - db
     environment:
       DATABASE_URL: postgresql://user:password@db:5432/dbname
+    
+    volumes:
+      - ./alembic:/app/alembic
+      - ./app:/app/app 
+
+    command:
+      - sh
+      - -c
+      - "sleep 5 && uvicorn app.main:app --host 0.0.0.0 --port 8000"
 
   db:
     image: postgres:13
